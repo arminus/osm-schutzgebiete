@@ -2,4 +2,5 @@
 .vscode
 data
 html-out
+python-out
 __pycache__
