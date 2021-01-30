@@ -1,0 +1,5 @@
+.env
+.vscode
+data
+html-out
+__pycache__
