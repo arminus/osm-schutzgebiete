@@ -1,5 +1,6 @@
-## Some Jupyter notebooks for extraction and analysis of OSM [Schongebiete](https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_für_Gebiete_im_Winter)
+## Jupyter notebooks for extraction and analysis of OSM [Schongebiete](https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_für_Gebiete_im_Winter)
 
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arminus/osm-schutzgebiete/HEAD)
 ### OSMSchutzgebiete.ipynb
 * used to track mapping progress, in particular of to be taged ways
 * extracts all protect_class=14 ways and relations and contained ways
@@ -7,7 +8,7 @@
 
 ### OSMSchutzgebiete2GeoJSON.ipynb
 * "direct" translation of the Queries in the [Wiki](https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_für_Gebiete_im_Winter)
-* extracts all data from overpass (i.e. "live" and uses the queries to classify from type1 to type8 according to the definition
+* extracts all data live from overpass and uses the queries to classify from type1 to type8 according to the definition
 * produces a geojson with respective properties, e.g.
 
 ```
@@ -27,7 +28,7 @@
                 "boundary": "protected_area",
                 "protect_class": "14",
                 "protection_title": "Gebietsverbot",
-                "s_type": "type1",
+                "classification": "type1",
                 "stroke": "#555555",
                 "stroke-width": 2,
                 "stroke-opacity": 1,
@@ -40,11 +41,11 @@
 }
             
 ```
-* s_type (TBD): the type as determined by the queries
-* stroke*/fill* (TBD): styles for https://geojson.io
-  * Currently just one style, and styling is limited both on geojson.io, leaflet TBD
-  * -> no support yet for the styles as defined in the Wiki
-* nevertheless, the explity s_type tags can be used to simplify downstream processing
+* classification: the type (1-8) as determined by the queries
+* stroke*/fill*: styles for https://geojson.io
+  * geojson.io has limited styling support, so this visualization uses the following fill color scheme:
+  * ![](images/legend.png)
+* nevertheless, the explit classification tag can be used to simplify downstream processing
 * further limitations and ToDos in the notebook
 
 ---
