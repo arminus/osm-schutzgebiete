@@ -1,6 +1,7 @@
 ## Jupyter notebooks for extraction and analysis of OSM [Schongebiete](https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_für_Gebiete_im_Winter)
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/arminus/osm-schutzgebiete/HEAD)
+[![Exports](https://img.shields.io/badge/Exports-OSM%20Export%20Files-brightgreen)](https://www.xctrails.org/osm/)
 ### OSMSchutzgebiete.ipynb
 * used to track mapping progress, in particular of to be taged ways
 * extracts all protect_class=14 ways and relations and contained ways
