@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>OSM Schongebiete</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="legend/Leaflet.TileLegend.js"></script>
+<link rel="stylesheet" href="legend/Leaflet.TileLegend.css" />
+
+<style>
+html, body { 
+  height: 99%; 
+}
+#map {
+  width: 100%;
+  height: 100%;
+}
+.leaflet-popup-content > ul {
+    padding-left: 5px;
+}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="L.TileLayer.BetterWMS.js"></script>
+<script>
+    var desc = "Layer für <a target='osm' href='https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_f%C3%BCr_Gebiete_im_Winter'>Schongebiete</a><br/>"+
+      "Map data © <a target='osm' href='http://www.openstreetmap.org/'>OpenStreepMap</a> contributors<br/><br/>"+
+      "WMS Layer provided by <a href='https://www.xctrails.org'>XCTrails.org</a>"
+    var legend = {
+        title: "Schongebiete in OpenstreetMap",
+        description: desc,
+        sections: [{
+            expend: true,
+            title: 'Schongebiete',
+            className: 'roads',
+            keys: [
+                {
+                    coordinates: [],
+                    text: "Ganzjähriges Befahrungsverbot für Skifahrer",
+                    thumbnail: "https://wiki.openstreetmap.org/w/images/c/c1/Noskiarea.png"
+                },
+                {
+                    coordinates: [],
+                    text: "Monatsabhängiges oder saisonales Befahrungsverbot für Skifahrer",
+                    thumbnail: "https://wiki.openstreetmap.org/w/images/1/11/Noskiareaconditional.png"
+                },
+                {
+                    coordinates: [],
+                    text: "Ganzjährige 'Bitte um Nichtbefahrung' für Skifahrer",
+                    thumbnail: "https://wiki.openstreetmap.org/w/images/8/89/Avoidskiarea.png"
+                },
+                {
+                    coordinates: [],
+                    text: "Monatsabhängige oder saisonale 'Bitte um Nichtbefahrung' für Skifahrer",
+                    thumbnail: "https://wiki.openstreetmap.org/w/images/a/ae/Avoidskiareaconditional.png"
+                },
+                {
+                    coordinates: [],
+                    text: "Ganzjähriges Skibefahrungsverbot der Fläche außerhalb der Wege (Wegegebot)",
+                    thumbnail: "https://wiki.openstreetmap.org/w/images/c/c6/Noskioffroad.png"
+                },
+                {
+                    coordinates: [],
+                    text: "Monatsabhängiges oder saisonales Skibefahrungsverbot der Fläche außerhalb der Wege (saisonales Wegegebot) ",
+                    thumbnail: "https://wiki.openstreetmap.org/w/images/5/5a/Noskioffroadconditional.png"
+                },
+                {
+                    coordinates: [],
+                    text: "Ganzjährige 'Bitte um Nichtbefahrung'' der Fläche außerhalb der Wege",
+                    thumbnail: "https://wiki.openstreetmap.org/w/images/e/e0/Avoidskioffroad.png"
+                },
+                {
+                    coordinates: [],
+                    text: "Monatsabhängige oder saisonale 'Bitte um Nichtbefahrung' der Fläche außerhalb der Wege",
+                    thumbnail: "https://wiki.openstreetmap.org/w/images/3/31/Avoidskioffroadconditional.png"
+                }
+            ]
+        }]
+    };
+    
+	var map = L.map('map', {attributionControl: false}).setView([47.7, 11.9], 12);
+    var l_osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom : 19,
+        id: "l_osm",
+        attribution : 'Map data &copy; <a href="http://www.openstreetmap.org">OpenStreepMap</a> contributors'
+    });
+	map.addLayer(l_osm);
+	
+    var wmsLayer= L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
+        layers: 'schongebiete:Schongebiete',
+        format: 'image/png',
+        styles: 'schongebiete-simpel',
+        transparent: true,
+        legend: legend,
+        openLegendOnLoad: true
+    });
+    map.addLayer(wmsLayer);	
+    var legendControl = (new L.Control.TileLegend()).addTo(map);
+</script>
+</body>
+</html>
