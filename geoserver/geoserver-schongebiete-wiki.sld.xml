@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<StyledLayerDescriptor version="1.0.0"
+  xsi:schemaLocation="http://www.opengis.net/sld StyledLayerDescriptor.xsd"
+  xmlns="http://www.opengis.net/sld"
+  xmlns:ogc="http://www.opengis.net/ogc"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <NamedLayer>
+    <Name>default_polygon</Name>
+    <UserStyle>
+      <Title>Default Polygon</Title>
+      <Abstract>Schongebiete</Abstract>
+      <FeatureTypeStyle>
+        <Rule>
+          <Name>type1234</Name>
+          <Title>Gelbe Fläche</Title>
+          <Abstract>Hintergund für type1-4</Abstract>
+          <ogc:Filter>
+            <ogc:Or>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>classifica</ogc:PropertyName>
+                <ogc:Literal>type1</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>classifica</ogc:PropertyName>
+                <ogc:Literal>type2</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>classifica</ogc:PropertyName>
+                <ogc:Literal>type3</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+              <ogc:PropertyIsEqualTo>
+                <ogc:PropertyName>classifica</ogc:PropertyName>
+                <ogc:Literal>type4</ogc:Literal>
+              </ogc:PropertyIsEqualTo>
+            </ogc:Or>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Fill>
+              <CssParameter name="fill">#FFD800</CssParameter>
+              <CssParameter name="opacity">0.4</CssParameter>
+            </Fill>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
+          <Name>type1</Name>
+          <Title>Ganzjähriges Befahrungsverbot für Skifahrer</Title>
+          <Abstract>Gelbe Fläche mit durchgezogenem Rahmen</Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:Literal>type1</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
+          <Name>type2</Name>
+          <Title>Monatsabhängiges oder saisonales Befahrungsverbot für Skifahrer</Title>
+          <Abstract>Gelbe Fläche mit gestricheltem Rahmen</Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:Literal>type2</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+              <CssParameter name="stroke-dasharray">5 5</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
+          <Name>type4</Name>
+          <Title>Monatsabhängige oder saisonale "Bitte um Nichtbefahrung" für Skifahrer</Title>
+          <Abstract>Gelbe gestreifte Fläche mit gestricheltem Rahmen</Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:Literal>type4</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Fill>
+              <GraphicFill>
+                <Graphic>
+                  <Mark>
+                    <WellKnownName>shape://horline</WellKnownName>
+                    <Stroke>
+                      <CssParameter name="stroke">#808080</CssParameter>
+                      <CssParameter name="stroke-width">10</CssParameter>
+                      <CssParameter name="opacity">0.6</CssParameter>
+                    </Stroke>
+                  </Mark>
+                  <Size>16</Size>
+                </Graphic>
+              </GraphicFill>
+            </Fill>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+              <CssParameter name="stroke-dasharray">5 5</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
+          <Name>type5</Name>
+          <Title>Ganzjähriges Skibefahrungsverbot der Fläche außerhalb der Wege (Wegegebot)</Title>
+          <Abstract>Gelbe, diagonal kreuzende Streifen mit durchgezogenem Rahmen</Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:Literal>type5</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Fill>
+              <GraphicFill>
+                <Graphic>
+                  <Mark>
+                    <WellKnownName>shape://times</WellKnownName>
+                    <Stroke>
+                      <CssParameter name="stroke">#FFD800</CssParameter>
+                      <CssParameter name="stroke-width">3</CssParameter>
+                      <CssParameter name="opacity">0.6</CssParameter>
+                    </Stroke>
+                  </Mark>
+                  <Size>16</Size>
+                </Graphic>
+              </GraphicFill>
+            </Fill>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
+          <Name>type6</Name>
+          <Title>Monatsabhängiges oder saisonales Skibefahrungsverbot der Fläche außerhalb der Wege (saisonales Wegegebot)</Title>
+          <Abstract>Gelbe, diagonal kreuzende Streifen mit gestricheltem Rahmen</Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:Literal>type6</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Fill>
+              <GraphicFill>
+                <Graphic>
+                  <Mark>
+                    <WellKnownName>shape://times</WellKnownName>
+                    <Stroke>
+                      <CssParameter name="stroke">#FFD800</CssParameter>
+                      <CssParameter name="stroke-width">3</CssParameter>
+                      <CssParameter name="opacity">0.6</CssParameter>
+                    </Stroke>
+                  </Mark>
+                  <Size>16</Size>
+                </Graphic>
+              </GraphicFill>
+            </Fill>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+              <CssParameter name="stroke-dasharray">5 5</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
+          <Name>type7</Name>
+          <Title>Ganzjährige "Bitte um Nichtbefahrung" der Fläche außerhalb der Wege</Title>
+          <Abstract>Gelbe/Graue, diagonal kreuzende Streifen mit durchgezogenem Rahmen</Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:Literal>type6</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Fill>
+              <GraphicFill>
+                <Graphic>
+                  <Mark>
+                    <WellKnownName>shape://slash</WellKnownName>
+                    <Stroke>
+                      <CssParameter name="stroke">#FFD800</CssParameter>
+                      <CssParameter name="stroke-width">3</CssParameter>
+                      <CssParameter name="opacity">0.6</CssParameter>
+                    </Stroke>
+                  </Mark>
+                  <Size>16</Size>
+                </Graphic>
+              </GraphicFill>
+            </Fill>
+          </PolygonSymbolizer>
+          <PolygonSymbolizer>
+            <Fill>
+              <GraphicFill>
+                <Graphic>
+                  <Mark>
+                    <WellKnownName>shape://backslash</WellKnownName>
+                    <Stroke>
+                      <CssParameter name="stroke">#808080</CssParameter>
+                      <CssParameter name="stroke-width">3</CssParameter>
+                      <CssParameter name="opacity">0.6</CssParameter>
+                    </Stroke>
+                  </Mark>
+                  <Size>16</Size>
+                </Graphic>
+              </GraphicFill>
+            </Fill>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
+          <Name>type8</Name>
+          <Title>Monatsabhängige oder saisonale "Bitte um Nichtbefahrung" der Fläche außerhalb der Wege</Title>
+          <Abstract>Gelbe/Graue, diagonal kreuzende Streifen mit gestricheltem Rahmen</Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:Literal>type6</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Fill>
+              <GraphicFill>
+                <Graphic>
+                  <Mark>
+                    <WellKnownName>shape://slash</WellKnownName>
+                    <Stroke>
+                      <CssParameter name="stroke">#FFD800</CssParameter>
+                      <CssParameter name="stroke-width">3</CssParameter>
+                      <CssParameter name="opacity">0.6</CssParameter>
+                    </Stroke>
+                  </Mark>
+                  <Size>16</Size>
+                </Graphic>
+              </GraphicFill>
+            </Fill>
+          </PolygonSymbolizer>
+          <PolygonSymbolizer>
+            <Fill>
+              <GraphicFill>
+                <Graphic>
+                  <Mark>
+                    <WellKnownName>shape://backslash</WellKnownName>
+                    <Stroke>
+                      <CssParameter name="stroke">#808080</CssParameter>
+                      <CssParameter name="stroke-width">3</CssParameter>
+                      <CssParameter name="opacity">0.6</CssParameter>
+                    </Stroke>
+                  </Mark>
+                  <Size>16</Size>
+                </Graphic>
+              </GraphicFill>
+            </Fill>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+              <CssParameter name="stroke-dasharray">5 5</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+      </FeatureTypeStyle>
+    </UserStyle>
+  </NamedLayer>
+</StyledLayerDescriptor>
