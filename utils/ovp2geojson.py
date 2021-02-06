@@ -107,11 +107,13 @@ def createMultiPoly(result, rel):
     return multiLonLats
 
 
-def create(result, allResults, outFile):
-    """dump a geoson from 
+def create(result, allResults, withStyles, outFile):
+    """dump a geojson from 
     Parameters:
     - result:     this is the entire overpass query result - relations and *all* ways
     - allResults: this is the list of ways w/o parent relations and the relations w/o child ways for the main loop
+    - withStyles: apply geojson.io styles
+    - outFile:    out File name
     Returns:
     - writes outFile
     """
@@ -141,14 +143,15 @@ def create(result, allResults, outFile):
             else:
                 lonLats += resortWays(result, wayRel)
         if (len(lonLats)>0 or len(multiLonLats)>0):
-            if 'classification' in wayRel.tags:
-                classification = wayRel.tags['classification'].replace("type","")
-                if len(classification) == 1:
-                    wayRel.tags.update(styles[int(classification)-1])
+            if withStyles:
+                if 'classification' in wayRel.tags:
+                    classification = wayRel.tags['classification'].replace("type","")
+                    if len(classification) == 1:
+                        wayRel.tags.update(styles[int(classification)-1])
+                    else:
+                        wayRel.tags.update(unclassifiedStyle)
                 else:
                     wayRel.tags.update(unclassifiedStyle)
-            else:
-                wayRel.tags.update(unclassifiedStyle)
             if (len(multiLonLats)>0):
                 for lonLats in multiLonLats:
                     features.append(Feature(geometry=Polygon([lonLats]),properties=wayRel.tags))
