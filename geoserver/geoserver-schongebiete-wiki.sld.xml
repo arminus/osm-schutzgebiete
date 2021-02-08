@@ -18,19 +18,19 @@
           <ogc:Filter>
             <ogc:Or>
               <ogc:PropertyIsEqualTo>
-                <ogc:PropertyName>classifica</ogc:PropertyName>
+                <ogc:PropertyName>classification</ogc:PropertyName>
                 <ogc:Literal>type1</ogc:Literal>
               </ogc:PropertyIsEqualTo>
               <ogc:PropertyIsEqualTo>
-                <ogc:PropertyName>classifica</ogc:PropertyName>
+                <ogc:PropertyName>classification</ogc:PropertyName>
                 <ogc:Literal>type2</ogc:Literal>
               </ogc:PropertyIsEqualTo>
               <ogc:PropertyIsEqualTo>
-                <ogc:PropertyName>classifica</ogc:PropertyName>
+                <ogc:PropertyName>classification</ogc:PropertyName>
                 <ogc:Literal>type3</ogc:Literal>
               </ogc:PropertyIsEqualTo>
               <ogc:PropertyIsEqualTo>
-                <ogc:PropertyName>classifica</ogc:PropertyName>
+                <ogc:PropertyName>classification</ogc:PropertyName>
                 <ogc:Literal>type4</ogc:Literal>
               </ogc:PropertyIsEqualTo>
             </ogc:Or>
@@ -48,7 +48,7 @@
           <Abstract>Gelbe Fläche mit durchgezogenem Rahmen</Abstract>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:PropertyName>classification</ogc:PropertyName>
               <ogc:Literal>type1</ogc:Literal>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>
@@ -65,7 +65,7 @@
           <Abstract>Gelbe Fläche mit gestricheltem Rahmen</Abstract>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:PropertyName>classification</ogc:PropertyName>
               <ogc:Literal>type2</ogc:Literal>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>
@@ -83,7 +83,7 @@
           <Abstract>Gelbe gestreifte Fläche mit gestricheltem Rahmen</Abstract>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:PropertyName>classification</ogc:PropertyName>
               <ogc:Literal>type4</ogc:Literal>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>
@@ -116,7 +116,7 @@
           <Abstract>Gelbe, diagonal kreuzende Streifen mit durchgezogenem Rahmen</Abstract>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:PropertyName>classification</ogc:PropertyName>
               <ogc:Literal>type5</ogc:Literal>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>
@@ -148,7 +148,7 @@
           <Abstract>Gelbe, diagonal kreuzende Streifen mit gestricheltem Rahmen</Abstract>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:PropertyName>classification</ogc:PropertyName>
               <ogc:Literal>type6</ogc:Literal>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>
@@ -181,7 +181,7 @@
           <Abstract>Gelbe/Graue, diagonal kreuzende Streifen mit durchgezogenem Rahmen</Abstract>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:PropertyName>classification</ogc:PropertyName>
               <ogc:Literal>type6</ogc:Literal>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>
@@ -230,7 +230,7 @@
           <Abstract>Gelbe/Graue, diagonal kreuzende Streifen mit gestricheltem Rahmen</Abstract>
           <ogc:Filter>
             <ogc:PropertyIsEqualTo>
-              <ogc:PropertyName>classifica</ogc:PropertyName>
+              <ogc:PropertyName>classification</ogc:PropertyName>
               <ogc:Literal>type6</ogc:Literal>
             </ogc:PropertyIsEqualTo>
           </ogc:Filter>

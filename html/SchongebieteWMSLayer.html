@@ -91,9 +91,9 @@ html, body {
 	map.addLayer(l_osm);
 	
     var wmsLayer= L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
-        layers: 'schongebiete:Schongebiete',
+        layers: 'schongebiete:geojson',
         format: 'image/png',
-        styles: 'schongebiete-simpel',
+        styles: 'schongebiete-full-pgis',
         transparent: true,
         legend: legend,
         openLegendOnLoad: true
