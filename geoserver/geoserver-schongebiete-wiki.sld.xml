@@ -12,6 +12,27 @@
       <Abstract>Schongebiete</Abstract>
       <FeatureTypeStyle>
         <Rule>
+          <Name>Unclassified</Name>
+          <Title>Graue Fläche</Title>
+          <Abstract></Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classification</ogc:PropertyName>
+              <ogc:Literal></ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Fill>
+              <CssParameter name="fill">#808080</CssParameter>
+              <CssParameter name="opacity">0.4</CssParameter>
+            </Fill>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
           <Name>type1234</Name>
           <Title>Gelbe Fläche</Title>
           <Abstract>Hintergund für type1-4</Abstract>
