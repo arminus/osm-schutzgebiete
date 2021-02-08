@@ -1,3 +1,4 @@
+from geojson.geometry import LineString
 import overpy
 import geojson
 from geojson import FeatureCollection, Feature, Polygon
@@ -107,7 +108,7 @@ def createMultiPoly(result, rel):
     return multiLonLats
 
 
-def create(result, allResults, withStyles, outFile):
+def create(result, allResults, withStyles, lType, outFile):
     """dump a geojson from 
     Parameters:
     - result:     this is the entire overpass query result - relations and *all* ways
@@ -130,7 +131,7 @@ def create(result, allResults, withStyles, outFile):
         {"stroke": "#555555", "stroke-width": 2, "stroke-opacity": 1, "fill": "#B200FF", "fill-opacity": 0.4}
     ]
     unclassifiedStyle = {"stroke": "#555555", "stroke-width": 2, "stroke-opacity": 1, "fill": "#808080", "fill-opacity": 0.4}
-
+    
     for wayRel in allResults:
         lonLats = []
         multiLonLats = []
@@ -154,9 +155,13 @@ def create(result, allResults, withStyles, outFile):
                     wayRel.tags.update(unclassifiedStyle)
             if (len(multiLonLats)>0):
                 for lonLats in multiLonLats:
+                    # this must be a polygon
                     features.append(Feature(geometry=Polygon([lonLats]),properties=wayRel.tags))
             else:
-                features.append(Feature(geometry=Polygon([lonLats]),properties=wayRel.tags))
+                if lType == "LineString":
+                    features.append(Feature(geometry=LineString(lonLats),properties=wayRel.tags))
+                else:
+                    features.append(Feature(geometry=Polygon([lonLats]),properties=wayRel.tags))
 
     feature_collection = FeatureCollection(features)
 
