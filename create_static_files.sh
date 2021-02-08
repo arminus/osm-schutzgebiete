@@ -10,17 +10,19 @@ cd $BASE
 source .venv/bin/activate
 
 python ./OSMSchutzgebiete.py silent 2>&1 >> $LOG
-sleep 5
-python ./OSMSchutzgebiete.py skipways silent 2>&1 >> $LOG
-sleep 5
-python ./OSMSchutzgebiete2GeoJSON.py silent 2>&1 >> $LOG
-
-cp data/Schongebiete.geojson $OUTDIR 2>&1 >> $LOG
-ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" Schongebiete.geojson -nln geojson -overwrite 2>&1 >> $LOG
-
-cp data/Schongebiete-ColorStyles.geojson $OUTDIR 2>&1 >> $LOG
-cp html-out/Schongebiete-Alpenrand-BY.html $OUTDIR 2>&1 >> $LOG
 cp html-out/Schongebiete-Alpenrand-BY-Wege.html $OUTDIR 2>&1 >> $LOG
+sleep 5
+
+python ./OSMSchutzgebiete.py skipways silent 2>&1 >> $LOG
+cp html-out/Schongebiete-Alpenrand-BY.html $OUTDIR 2>&1 >> $LOG
+sleep 5
+
+python ./OSMSchutzgebiete2GeoJSON.py silent 2>&1 >> $LOG
+cp data/Schongebiete.geojson $OUTDIR 2>&1 >> $LOG
+cp data/Schongebiete-ColorStyles.geojson $OUTDIR 2>&1 >> $LOG
+cp data/SchongebieteWays.geojson $OUTDIR 2>&1 >> $LOG
+ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" Schongebiete.geojson -nln geojson -overwrite 2>&1 >> $LOG
+ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" SchongebieteWays.geojson -nln geojsonWays -overwrite 2>&1 >> $LOG
 
 if [ ! -d data/Shapes ]; then
     mkdir data/Shapes
