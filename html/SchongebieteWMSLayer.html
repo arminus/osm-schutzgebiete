@@ -11,14 +11,21 @@
 
 <style>
 html, body { 
-  height: 99%; 
+    height: 99%; 
 }
 #map {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 .leaflet-popup-content > ul {
     padding-left: 5px;
+}
+.leaflet-control-tilelegend h1 {
+    padding-top: 5px !important;
+}
+div.tilelegend-section:nth-child(3) > ul:nth-child(2) > li:nth-child(1) > div:nth-child(1),
+div.tilelegend-section:nth-child(3) > ul:nth-child(2) > li:nth-child(2) > div:nth-child(1) {
+    height: 20px;
 }
 </style>
 </head>
@@ -79,10 +86,27 @@ html, body {
                     thumbnail: "https://wiki.openstreetmap.org/w/images/3/31/Avoidskioffroadconditional.png"
                 }
             ]
-        }]
+        },{
+            expend: false,
+            title: 'Wege in Schongebieten',
+            className: 'roads',
+            keys: [
+                {
+                    coordinates: [],
+                    text: "Wege mit access:conditional tags",
+                    thumbnail: "https://www.xctrails.org/images/WegMitAccess.png"
+                },
+                {
+                    coordinates: [],
+                    text: "Wege ohne access:conditional tags",
+                    thumbnail: "https://www.xctrails.org/images/WegOhneAccess.png"
+                }
+            ]
+        }
+        ]
     };
     
-	var map = L.map('map', {attributionControl: false}).setView([47.7, 11.9], 12);
+	var map = L.map('map', {attributionControl: false}).setView([47.86, 12], 10);
     var l_osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom : 19,
         id: "l_osm",
@@ -90,7 +114,7 @@ html, body {
     });
 	map.addLayer(l_osm);
 	
-    var wmsLayer= L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
+    var wmsLayer = L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
         layers: 'schongebiete:geojson',
         format: 'image/png',
         styles: 'schongebiete-full-pgis',
@@ -100,6 +124,20 @@ html, body {
     });
     map.addLayer(wmsLayer);	
     var legendControl = (new L.Control.TileLegend()).addTo(map);
+    
+    var wmsLayerWays = L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
+        layers: 'schongebiete:geojsonways',
+        format: 'image/png',
+        styles: 'schongebiete-ways-pgis',
+        transparent: true,
+        legend: legend,
+        openLegendOnLoad: true
+    });
+    var overlays = {
+		"Wege in Schongebieten": wmsLayerWays
+	};    
+    L.control.layers(null, overlays, {position: "topleft"}).addTo(map);
+</script>
 </script>
 </body>
 </html>

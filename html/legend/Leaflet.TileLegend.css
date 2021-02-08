@@ -111,7 +111,7 @@
     border-bottom: 1px solid #eee;
 }
 .tilelegend-toolbox {
-    display: inline-block;
+    display: none;
 }
 .tilelegend-minimize,
 .tilelegend-maximize,

@@ -60,7 +60,7 @@ L.TileLayer.BetterWMS = L.TileLayer.WMS.extend({
   
   showGetFeatureInfo: function (err, latlng, content) {
     if (err) { console.log(err); return; } // do nothing if there's an error
-    
+    if (content.length < 665) return; // very hacky, this is the default empty HTML...  
     // Otherwise show the content in a popup, or something.
     L.popup({ maxWidth: 600})
       .setLatLng(latlng)
