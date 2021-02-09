@@ -1,143 +1,138 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<title>OSM Schongebiete</title>
+
+    <title>OSM Schongebiete</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<script src="legend/Leaflet.TileLegend.js"></script>
-<link rel="stylesheet" href="legend/Leaflet.TileLegend.css" />
 
-<style>
-html, body { 
-    height: 99%; 
-}
-#map {
-    width: 100%;
-    height: 100%;
-}
-.leaflet-popup-content > ul {
-    padding-left: 5px;
-}
-.leaflet-control-tilelegend h1 {
-    padding-top: 5px !important;
-}
-div.tilelegend-section:nth-child(3) > ul:nth-child(2) > li:nth-child(1) > div:nth-child(1),
-div.tilelegend-section:nth-child(3) > ul:nth-child(2) > li:nth-child(2) > div:nth-child(1) {
-    height: 20px;
-}
-</style>
+<!-- https://unpkg.com/leaflet@1.7.1/dist/leaflet.js -->
+<script src="leaflet/leaflet.js"></script>
+
+<script src="leaflet/leaflet-sidebar.min.js"></script>
+<script src="L.TileLayer.BetterWMS.js"></script>
+
+<link rel="stylesheet" href="leaflet/leaflet.css" />
+<link rel="stylesheet" href="leaflet/leaflet-sidebar.min.css" />
+<link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="styles.css" />
+
 </head>
 <body>
+<div id="sidebar" class="leaflet-sidebar">
+    <div class="leaflet-sidebar-tabs">
+        <ul role="tablist">
+            <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
+            <li><a href="#unClassTab" role="tab"><i class="fa fa-question-circle"></i></a></li>
+            <li><a href="#multiClassTab" role="tab"><i class="fa fa-plus-circle"></i></a></li>
+        </ul>
+        <ul role="tablist">
+            <li><a target="_blank" href="https://github.com/arminus/osm-schutzgebiete"><i class="fa fa-github"></i></a></li>
+        </ul>
+    </div>
+    <!-- panel content -->
+    <div class="leaflet-sidebar-content">
+        <div class="leaflet-sidebar-pane" id="home">
+            <h1 class="leaflet-sidebar-header">
+                Legende
+                <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+            </h1>
+            <div>
+                <div class="intro">
+                    <div class="title">OpenStreetmap <a target='osm' href='https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_f%C3%BCr_Gebiete_im_Winter'>Schongebiete</a></div>
+                    <div class="subtitle">(boundary=protected_area / protect_class=14)</div>
+                    Map data © <a target='osm' href='http://www.openstreetmap.org/'>OpenStreepMap</a> contributors<br/><br/>
+                    WMS Layer by <a href='https://www.xctrails.org'>XCTrails.org</a>
+                </div>
+                <table>
+                    <tr>
+                        <td><div class="lImage"><img src="https://wiki.openstreetmap.org/w/images/c/c1/Noskiarea.png" /></div></td>
+                        <td>Ganzjähriges Befahrungsverbot für Skifahrer</td>
+                        <td><span id="type1"></span></td>
+                    </tr>
+                    <tr>
+                        <td><div class="lImage"><img src="https://wiki.openstreetmap.org/w/images/1/11/Noskiareaconditional.png" /></div></td>
+                        <td>Monatsabhängiges oder saisonales Befahrungsverbot für Skifahrer</td>
+                        <td><span id="type2"></span></td>
+                    </tr>
+                    <tr>
+                        <td><div class="lImage"><img src="https://wiki.openstreetmap.org/w/images/8/89/Avoidskiarea.png" /></div></td>
+                        <td>Ganzjährige 'Bitte um Nichtbefahrung' für Skifahrer</td>
+                        <td><span id="type3"></span></td>
+                    </tr>
+                    <tr>
+                        <td><div class="lImage"><img src="https://wiki.openstreetmap.org/w/images/a/ae/Avoidskiareaconditional.png" /></div></td>
+                        <td>Monatsabhängige oder saisonale 'Bitte um Nichtbefahrung' für Skifahrer</td>
+                        <td><span id="type4"></span></td>
+                    </tr>
+                    <tr>
+                        <td><div class="lImage"><img src="https://wiki.openstreetmap.org/w/images/c/c6/Noskioffroad.png" /></div></td>
+                        <td>Ganzjähriges Skibefahrungsverbot der Fläche außerhalb der Wege (Wegegebot)</td>
+                        <td><span id="type5"></span></td>
+                    </tr>
+                    <tr>
+                        <td><div class="lImage"><img src="https://wiki.openstreetmap.org/w/images/5/5a/Noskioffroadconditional.png" /></div></td>
+                        <td>Monatsabhängiges oder saisonales Skibefahrungsverbot der Fläche außerhalb der Wege (saisonales Wegegebot)</td>
+                        <td><span id="type6"></span></td>
+                    </tr>
+                    <tr>
+                        <td><div class="lImage"><img src="https://wiki.openstreetmap.org/w/images/e/e0/Avoidskioffroad.png" /></div></td>
+                        <td>Ganzjährige 'Bitte um Nichtbefahrung' der Fläche außerhalb der Wege</td>
+                        <td><span id="type7"></span></td>
+                    </tr>
+                    <tr>
+                        <td><div class="lImage"><img src="https://wiki.openstreetmap.org/w/images/3/31/Avoidskioffroadconditional.png" /></div></td>
+                        <td>Monatsabhängige oder saisonale 'Bitte um Nichtbefahrung' der Fläche außerhalb der Wege</td>
+                        <td><span id="type8"></span></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>Gesamt eindeutig klassifiziert:</td>
+                        <td><span id="total"></span></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><a href='#' onclick='sidebar.open("multiClassTab")'>Mehrfach klassifiziert:</a></td>
+                        <td><span id="multitypes"></span></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><a href='#' onclick='sidebar.open("unClassTab")'>Unklassifiziert:</a></td>
+                        <td><span id="unclassifieds"></span></td>
+                    </tr>
+                </table>
+                <div id="wegeLegende">
+                <table>
+                    <tr>
+                        <td><div class="lImage20"><img src="WegMitAccess.png" /></div></td>
+                        <td>Wege mit access:conditional tags</td>
+                    </tr>
+                    <tr>
+                        <td><div class="lImage20"><img src="WegOhneAccess.png" /></div></td>
+                        <td>Wege ohne access:conditional tags</td>
+                    </tr>
+                </table>
+                </div>
+            </div>
+        </div>
+        <div class="leaflet-sidebar-pane" id="unClassTab">
+            <h1 class="leaflet-sidebar-header">
+                Unklassifizierte Schutzgebiete
+                <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+            </h1>
+            <div id="unclassHtml"></div>
+        </div>
+        <div class="leaflet-sidebar-pane" id="multiClassTab">
+            <h1 class="leaflet-sidebar-header">
+                Mehrfach klassifizierte Schutzgebiete
+                <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+            </h1>
+            <div id="multiClassHtml"></div>
+        </div>
+    </div>
+</div>    
 <div id="map"></div>
-<script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-<script src="L.TileLayer.BetterWMS.js"></script>
-<script>
-    var desc = "Layer für <a target='osm' href='https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_f%C3%BCr_Gebiete_im_Winter'>Schongebiete</a><br/>"+
-      "Map data © <a target='osm' href='http://www.openstreetmap.org/'>OpenStreepMap</a> contributors<br/><br/>"+
-      "WMS Layer provided by <a href='https://www.xctrails.org'>XCTrails.org</a>"
-    var legend = {
-        title: "Schongebiete in OpenstreetMap",
-        description: desc,
-        sections: [{
-            expend: true,
-            title: 'Schongebiete',
-            className: 'roads',
-            keys: [
-                {
-                    coordinates: [],
-                    text: "Ganzjähriges Befahrungsverbot für Skifahrer",
-                    thumbnail: "https://wiki.openstreetmap.org/w/images/c/c1/Noskiarea.png"
-                },
-                {
-                    coordinates: [],
-                    text: "Monatsabhängiges oder saisonales Befahrungsverbot für Skifahrer",
-                    thumbnail: "https://wiki.openstreetmap.org/w/images/1/11/Noskiareaconditional.png"
-                },
-                {
-                    coordinates: [],
-                    text: "Ganzjährige 'Bitte um Nichtbefahrung' für Skifahrer",
-                    thumbnail: "https://wiki.openstreetmap.org/w/images/8/89/Avoidskiarea.png"
-                },
-                {
-                    coordinates: [],
-                    text: "Monatsabhängige oder saisonale 'Bitte um Nichtbefahrung' für Skifahrer",
-                    thumbnail: "https://wiki.openstreetmap.org/w/images/a/ae/Avoidskiareaconditional.png"
-                },
-                {
-                    coordinates: [],
-                    text: "Ganzjähriges Skibefahrungsverbot der Fläche außerhalb der Wege (Wegegebot)",
-                    thumbnail: "https://wiki.openstreetmap.org/w/images/c/c6/Noskioffroad.png"
-                },
-                {
-                    coordinates: [],
-                    text: "Monatsabhängiges oder saisonales Skibefahrungsverbot der Fläche außerhalb der Wege (saisonales Wegegebot) ",
-                    thumbnail: "https://wiki.openstreetmap.org/w/images/5/5a/Noskioffroadconditional.png"
-                },
-                {
-                    coordinates: [],
-                    text: "Ganzjährige 'Bitte um Nichtbefahrung'' der Fläche außerhalb der Wege",
-                    thumbnail: "https://wiki.openstreetmap.org/w/images/e/e0/Avoidskioffroad.png"
-                },
-                {
-                    coordinates: [],
-                    text: "Monatsabhängige oder saisonale 'Bitte um Nichtbefahrung' der Fläche außerhalb der Wege",
-                    thumbnail: "https://wiki.openstreetmap.org/w/images/3/31/Avoidskioffroadconditional.png"
-                }
-            ]
-        },{
-            expend: false,
-            title: 'Wege in Schongebieten',
-            className: 'roads',
-            keys: [
-                {
-                    coordinates: [],
-                    text: "Wege mit access:conditional tags",
-                    thumbnail: "WegMitAccess.png"
-                },
-                {
-                    coordinates: [],
-                    text: "Wege ohne access:conditional tags",
-                    thumbnail: "WegOhneAccess.png"
-                }
-            ]
-        }
-        ]
-    };
-    
-	var map = L.map('map', {attributionControl: false}).setView([47.86, 12], 10);
-    var l_osm = new L.TileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom : 19,
-        id: "l_osm",
-        attribution : 'Map data &copy; <a href="http://www.openstreetmap.org">OpenStreepMap</a> contributors'
-    });
-	map.addLayer(l_osm);
-	
-    var wmsLayer = L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
-        layers: 'schongebiete:geojson',
-        format: 'image/png',
-        styles: 'schongebiete-full-pgis',
-        transparent: true,
-        legend: legend,
-        openLegendOnLoad: true
-    });
-    map.addLayer(wmsLayer);	
-    var legendControl = (new L.Control.TileLegend()).addTo(map);
-    
-    var wmsLayerWays = L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
-        layers: 'schongebiete:geojsonways',
-        format: 'image/png',
-        styles: 'schongebiete-ways-pgis',
-        transparent: true,
-        legend: legend,
-        openLegendOnLoad: true
-    });
-    var overlays = {
-		"Wege in Schongebieten": wmsLayerWays
-	};    
-    L.control.layers(null, overlays, {position: "topleft"}).addTo(map);
-</script>
-</script>
+<script src="schongebiete.js"></script>
 </body>
 </html>

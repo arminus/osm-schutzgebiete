@@ -1,4 +1,5 @@
 // Ryan Clark’s Block 6908938 - http://bl.ocks.org/rclark/6908938
+// slightly modified
 L.TileLayer.BetterWMS = L.TileLayer.WMS.extend({
   
   onAdd: function (map) {
@@ -16,19 +17,14 @@ L.TileLayer.BetterWMS = L.TileLayer.WMS.extend({
   },
   
   getFeatureInfo: function (evt) {
-    // Make an AJAX request to the server and hope for the best
     var url = this.getFeatureInfoUrl(evt.latlng),
         showResults = L.Util.bind(this.showGetFeatureInfo, this);
-    $.ajax({
-      url: url,
-      success: function (data, status, xhr) {
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
         var err = typeof data === 'string' ? null : data;
         showResults(err, evt.latlng, data);
-      },
-      error: function (xhr, status, error) {
-        showResults(error);  
-      }
-    });
+      });
   },
   
   getFeatureInfoUrl: function (latlng) {
