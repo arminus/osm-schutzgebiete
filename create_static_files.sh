@@ -4,34 +4,54 @@ BASE=~/osm/scripts/python
 OUTDIR=~/osm/html/osm
 SHAPESDIR=~/osm/data/Shapes/Schongebiete
 
-LOG=${BASE}/update.log
+LOG=${BASE}/update.log.$$
+FLOG=${BASE}/update.log
+
+function error {
+    cat ${LOG} |sed 's/\r//g' | mailx -r info@xctrails.org -s "Schongebiete Update Error" info@xctrails.org
+    cat ${LOG} >> ${FLOG}
+    rm ${LOG}
+    exit
+}
 
 cd $BASE
 source .venv/bin/activate
 
-python ./OSMSchutzgebiete.py silent 2>&1 >> $LOG
-cp html-out/Schongebiete-Alpenrand-BY-Wege.html $OUTDIR 2>&1 >> $LOG
+rm html-out/*
+python ./OSMSchutzgebiete.py silent >> $LOG 2>&1 
+[ ! -f html-out/Schongebiete-Alpenrand-BY-Wege.html ] && error
+cp html-out/Schongebiete-Alpenrand-BY-Wege.html $OUTDIR >> $LOG 2>&1 
 sleep 5
 
-python ./OSMSchutzgebiete.py skipways silent 2>&1 >> $LOG
-cp html-out/Schongebiete-Alpenrand-BY.html $OUTDIR 2>&1 >> $LOG
+python ./OSMSchutzgebiete.py skipways silent >> $LOG 2>&1 
+cp html-out/Schongebiete-Alpenrand-BY.html $OUTDIR >> $LOG 2>&1 
+[ ! -f html-out/Schongebiete-Alpenrand-BY.html ] && error
 sleep 5
 
-python ./OSMSchutzgebiete2GeoJSON.py silent 2>&1 >> $LOG
-cp data/Schongebiete.geojson $OUTDIR 2>&1 >> $LOG
-cp data/Schongebiete-ColorStyles.geojson $OUTDIR 2>&1 >> $LOG
-cp data/SchongebieteWays.geojson $OUTDIR 2>&1 >> $LOG
-ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" Schongebiete.geojson -nln geojson -overwrite 2>&1 >> $LOG
-ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" SchongebieteWays.geojson -nln geojsonWays -overwrite 2>&1 >> $LOG
+rm -rf data/*
+python ./OSMSchutzgebiete2GeoJSON.py silent >> $LOG 2>&1 
+[ ! -f data/Schongebiete.geojson -o ! -r data/SchongebieteWays.geojson ] && error
+cp data/Schongebiete.geojson $OUTDIR >> $LOG 2>&1 
+cp data/Schongebiete-ColorStyles.geojson $OUTDIR >> $LOG 2>&1 
+cp data/SchongebieteWays.geojson $OUTDIR >> $LOG 2>&1 
+cp data/statistics.json $OUTDIR/../schongebiete/data >> $LOG 2>&1 
+ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" data/Schongebiete.geojson -nln geojson -overwrite >> $LOG 2>&1 
+[ $? -ne 0 ] && error
+ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" data/SchongebieteWays.geojson -nln geojsonWays -overwrite >> $LOG 2>&1 
+[ $? -ne 0 ] && error
 
 if [ ! -d data/Shapes ]; then
     mkdir data/Shapes
 fi
 cd data/Shapes
-ogr2ogr -f "ESRI Shapefile" Schongebiete.shp ../Schongebiete.geojson 2>&1 >> $LOG
+ogr2ogr -f "ESRI Shapefile" Schongebiete.shp ../Schongebiete.geojson >> $LOG 2>&1 
 cp -f * $SHAPESDIR
 
 cd $OUTDIR
-ogr2ogr -f "KML" -a_srs "EPSG:4326" Schongebiete.kml Schongebiete.geojson 2>&1 >> $LOG
+ogr2ogr -f "KML" -a_srs "EPSG:4326" Schongebiete.kml Schongebiete.geojson >> $LOG 2>&1 
 geojsontoosm Schongebiete.geojson > Schongebiete.osm
 
+if [ -f ${LOG} ]; then
+    cat ${LOG} >> ${FLOG}
+    rm ${LOG}
+fi

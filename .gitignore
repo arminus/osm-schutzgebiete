@@ -4,4 +4,8 @@ data
 test
 html-out
 python-out
+html/font-awesome-4.7.0
+html/leaflet
+html/data
 __pycache__
+
