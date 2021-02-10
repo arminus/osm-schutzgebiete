@@ -26,6 +26,7 @@
             <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
             <li><a href="#unClassTab" role="tab"><i class="fa fa-question-circle"></i></a></li>
             <li><a href="#multiClassTab" role="tab"><i class="fa fa-plus-circle"></i></a></li>
+            <li><a href="#downloadsTab" role="tab"><i class="fa fa-cloud-download"></i></a></li>
         </ul>
         <ul role="tablist">
             <li><a target="_blank" href="https://github.com/arminus/osm-schutzgebiete"><i class="fa fa-github"></i></a></li>
@@ -42,8 +43,11 @@
                 <div class="intro">
                     <div class="title">OpenStreetmap <a target='osm' href='https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_f%C3%BCr_Gebiete_im_Winter'>Schongebiete</a></div>
                     <div class="subtitle">(boundary=protected_area / protect_class=14)</div>
+                    <div>
                     Map data © <a target='osm' href='http://www.openstreetmap.org/'>OpenStreepMap</a> contributors<br/><br/>
                     WMS Layer by <a href='https://www.xctrails.org'>XCTrails.org</a>
+                    </div>
+                    <i>Letzter Update: <span class="lastUpdate"></span></i>
                 </div>
                 <table>
                     <tr>
@@ -129,6 +133,24 @@
                 <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
             </h1>
             <div id="multiClassHtml"></div>
+        </div>
+        <div class="leaflet-sidebar-pane" id="downloadsTab">
+            <h1 class="leaflet-sidebar-header">
+                Downloads
+                <span class="leaflet-sidebar-close"><i class="fa fa-caret-right"></i></span>
+            </h1>
+            <ul>
+                <li><a href="/osm/Schongebiete.geojson">Schongebiete.geojson</a>: Alle weltweit gemappten Schongebiete, explizit klassifiziert nach <a target="_blank" href="https://wiki.openstreetmap.org/wiki/DE:Betretungsverbote_für_Gebiete_im_Winter">Wiki-Defintion</a><br/>
+                    classification tag = type1 - type8
+                <li><a href="/osm/Schongebiete-ColorStyles.geojson">Schongebiete-ColorStyles.geojson</a>:<br/>
+                    Farb-Codes für <a target="_blank" href="https://geojson.io">https://geojson.io</a>: <img src="https://cdn.githubraw.com/arminus/osm-schutzgebiete/f6f753b9/images/legend.png">
+                </li>   
+                <li><a href="/osm/Schongebiete.kml">Schongebiete.kml</a>: ... im KML Format</li>
+                <li><a href="/osm/Schongebiete.osm">Schongebiete.osm</a>: ... im OSM XML Format</li>
+            </ul>
+            <p><i>Letzter Update: <span class="lastUpdate"></span></i></p>
+            <p>© <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreepMap</a> contributors</i></p>
+    
         </div>
     </div>
 </div>    
