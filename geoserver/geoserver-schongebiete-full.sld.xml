@@ -99,6 +99,38 @@
           </PolygonSymbolizer>
         </Rule>
         <Rule>
+          <Name>type3</Name>
+          <Title>Ganzjährige "Bitte um Nichtbefahrung" für Skifahrer</Title>
+          <Abstract>Gelb gestreifte Fläche mit durchgezogenem Rahmen</Abstract>
+          <ogc:Filter>
+            <ogc:PropertyIsEqualTo>
+              <ogc:PropertyName>classification</ogc:PropertyName>
+              <ogc:Literal>type3</ogc:Literal>
+            </ogc:PropertyIsEqualTo>
+          </ogc:Filter>
+          <PolygonSymbolizer>
+            <Fill>
+              <GraphicFill>
+                <Graphic>
+                  <Mark>
+                    <WellKnownName>shape://horline</WellKnownName>
+                    <Stroke>
+                      <CssParameter name="stroke">#808080</CssParameter>
+                      <CssParameter name="stroke-width">10</CssParameter>
+                      <CssParameter name="opacity">0.6</CssParameter>
+                    </Stroke>
+                  </Mark>
+                  <Size>16</Size>
+                </Graphic>
+              </GraphicFill>
+            </Fill>
+            <Stroke>
+              <CssParameter name="stroke">#FFD800</CssParameter>
+              <CssParameter name="stroke-width">2</CssParameter>
+            </Stroke>
+          </PolygonSymbolizer>
+        </Rule>
+        <Rule>
           <Name>type4</Name>
           <Title>Monatsabhängige oder saisonale "Bitte um Nichtbefahrung" für Skifahrer</Title>
           <Abstract>Gelbe gestreifte Fläche mit gestricheltem Rahmen</Abstract>
