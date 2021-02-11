@@ -55,7 +55,7 @@ ogr2ogr -f "KML" -a_srs "EPSG:4326" Schongebiete.kml Schongebiete.geojson > /dev
 geojsontoosm Schongebiete.geojson > Schongebiete.osm
 
 if [ -f ${LOG} ]; then
-    echo "$(date) finshed" > ${LOG}
+    echo "$(date) finshed" >> ${LOG}
     cat ${LOG} >> ${FLOG}
     rm ${LOG}
 fi
