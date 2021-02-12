@@ -18,6 +18,19 @@ var wmsLayer = L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schonge
 });
 map.addLayer(wmsLayer);	
 
+var wmsLayerUnclassified = L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
+    layers: 'schongebiete:unclassified',
+    format: 'image/png',
+    styles: 'schongebiete-full-pgis',
+    transparent: true
+});
+wmsLayerUnclassified.on("add" ,function() {
+    map.removeLayer(wmsLayer);
+});
+wmsLayerUnclassified.on("remove" ,function() {
+    map.addLayer(wmsLayer);
+});
+
 var wmsLayerWays = L.tileLayer.betterWms("https://www.xctrails.org/geoserver/schongebiete/wms", {
     layers: 'schongebiete:geojsonways',
     format: 'image/png',
@@ -47,7 +60,8 @@ errorLayer.on("add",function() {
 
 var overlays = {
     "Wege in Schongebieten": wmsLayerWays,
-    "Tagging Warnungen": errorLayer
+    "Tagging Warnungen": errorLayer,
+    "Nur unklassifizierte Schongebiete": wmsLayerUnclassified
 };
 
 L.control.layers(null, overlays, {position: "topleft"}).addTo(map);

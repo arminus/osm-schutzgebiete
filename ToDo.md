@@ -1,5 +1,6 @@
 ## Notebooks:
 * error handling (retry?) for overpass timeouts
+* queries for WMS Layer - or geojson for unclassified areas
 
 ## xctrails.org
 * error handling in create_static_files.sh
