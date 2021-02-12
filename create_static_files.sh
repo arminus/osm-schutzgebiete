@@ -31,6 +31,11 @@ cp html-out/Schongebiete-Alpenrand-BY.html $OUTDIR >> $LOG 2>&1
 sleep 5
 
 rm -rf data/*
+
+python ./OSMSchutzgebieteCheck.py silent >> $LOG 2>&1 
+[ ! -f data/SchongebieteTagFehler.geojson ] && error
+cp data/SchongebieteTagFehler.geojson $OUTDIR >> $LOG 2>&1 
+
 python ./OSMSchutzgebiete2GeoJSON.py silent >> $LOG 2>&1 
 [ ! -f data/Schongebiete.geojson -o ! -r data/SchongebieteWays.geojson ] && error
 cp data/Schongebiete.geojson $OUTDIR >> $LOG 2>&1 

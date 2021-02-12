@@ -1,3 +1,5 @@
+var errorJsonLoaded = false;
+
 var map = L.map('map').setView([47.86, 12], 10);
 map.attributionControl.setPosition('bottomleft');
 
@@ -23,9 +25,31 @@ var wmsLayerWays = L.tileLayer.betterWms("https://www.xctrails.org/geoserver/sch
     transparent: true
 });
 
+var errorLayer = L.geoJSON(null, {
+    style: function (feature) {
+        return {color: feature.properties.fill};
+    },
+    onEachFeature: function(feature, layer) {
+        var html = "<h3>Fehler bei <a target='osm' href='https://www.openstreetmap.org/"+feature.properties.id+"'>"+feature.properties.id+"</a>:</h3>";
+        html += "<ul><li>"+feature.properties.FEHLER.join("</li><li>")+"</li></ul>";
+        layer.bindPopup(html, {autoClose: false});
+    }
+});
+errorLayer.on("add",function() {
+    if (!errorJsonLoaded)
+        fetch("data/SchongebieteTagFehler.geojson")
+        .then(response => response.json())
+        .then(json => {
+            errorLayer.addData(json);
+            errorJsonLoaded = true;
+        });
+});
+
 var overlays = {
-    "Wege in Schongebieten": wmsLayerWays
-};    
+    "Wege in Schongebieten": wmsLayerWays,
+    "Tagging Warnungen": errorLayer
+};
+
 L.control.layers(null, overlays, {position: "topleft"}).addTo(map);
 wmsLayerWays.on('add', function(e) {
     document.querySelectorAll('#wegeLegende').forEach(element => {
@@ -62,6 +86,7 @@ fetch("data/statistics.json")
       document.querySelector('#total').innerHTML = total;
       document.querySelector('#multitypes').innerHTML = json.multiTypes.length;
       document.querySelector('#unclassifieds').innerHTML = json.unclassifieds.length;
+      document.querySelector('#taggingErrors').innerHTML = json.errors;
 
       var unClass = document.getElementById("unclassHtml");
       var ul = document.createElement("ul");
