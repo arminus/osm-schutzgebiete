@@ -3,7 +3,6 @@
   xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd"
   xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc"
   xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
   <NamedLayer>
     <Name></Name>
     <UserStyle>
@@ -27,9 +26,14 @@
           <Title>green line</Title>
           <ogc:Filter>
             <ogc:Not>
-              <ogc:PropertyIsNull>
-                <ogc:PropertyName>access:conditional</ogc:PropertyName>
-              </ogc:PropertyIsNull>
+		      <ogc:And>
+                <ogc:PropertyIsNull>
+                  <ogc:PropertyName>access:conditional</ogc:PropertyName>
+                </ogc:PropertyIsNull>
+                <ogc:PropertyIsNull>
+                  <ogc:PropertyName>access</ogc:PropertyName>
+                </ogc:PropertyIsNull>
+              </ogc:And>
             </ogc:Not>
           </ogc:Filter>
           <LineSymbolizer>
