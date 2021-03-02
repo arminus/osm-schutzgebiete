@@ -19,23 +19,26 @@ function error {
 cd $BASE
 source .venv/bin/activate
 
+OVP_SLEEP=120
+
 rm html-out/*
 python ./OSMSchutzgebiete.py silent >> $LOG 2>&1 
 [ ! -f html-out/Schongebiete-Alpenrand-BY-Wege.html ] && error
 cp html-out/Schongebiete-Alpenrand-BY-Wege.html $OUTDIR >> $LOG 2>&1 
-sleep 5
 
+sleep $OVP_SLEEP
 python ./OSMSchutzgebiete.py skipways silent >> $LOG 2>&1 
 cp html-out/Schongebiete-Alpenrand-BY.html $OUTDIR >> $LOG 2>&1 
 [ ! -f html-out/Schongebiete-Alpenrand-BY.html ] && error
-sleep 5
 
 rm -rf data/*
 
+sleep $OVP_SLEEP
 python ./OSMSchutzgebieteCheck.py silent >> $LOG 2>&1 
 [ ! -f data/SchongebieteTagFehler.geojson ] && error
 cp data/SchongebieteTagFehler.geojson $OUTDIR >> $LOG 2>&1 
 
+sleep $OVP_SLEEP
 python ./OSMSchutzgebiete2GeoJSON.py silent >> $LOG 2>&1 
 [ ! -f data/Schongebiete.geojson -o ! -r data/SchongebieteWays.geojson ] && error
 cp data/Schongebiete.geojson $OUTDIR >> $LOG 2>&1 
