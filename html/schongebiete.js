@@ -94,9 +94,9 @@ fetch("data/statistics.json")
         total += parseInt(value)
         document.querySelector('#'+key).innerHTML = value;
       });
-      document.querySelectorAll('.lastUpdate').forEach(e => {
-          e.innerHTML = json.lastUpdate;
-      });
+    //   document.querySelectorAll('.lastUpdate').forEach(e => {
+    //       e.innerHTML = json.lastUpdate;
+    //   });
       document.querySelector('#total').innerHTML = total;
       document.querySelector('#multitypes').innerHTML = json.multiTypes.length;
       document.querySelector('#unclassifieds').innerHTML = json.unclassifieds.length;

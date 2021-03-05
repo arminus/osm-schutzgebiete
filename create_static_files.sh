@@ -62,8 +62,12 @@ cd $OUTDIR
 ogr2ogr -f "KML" -a_srs "EPSG:4326" Schongebiete.kml Schongebiete.geojson > /dev/null 2>&1 
 geojsontoosm Schongebiete.geojson > Schongebiete.osm
 
+date=$(date +'%d.%m.%Y %H:%M'|sed 's/\s/%20/g')
+wget -q -O ~/osm/html/schongebiete/data/status.svg "https://img.shields.io/static/v1?label=updated&message=${date}&color=green"
+
 if [ -f ${LOG} ]; then
     echo "$(date) finshed" >> ${LOG}
     cat ${LOG} >> ${FLOG}
     rm ${LOG}
 fi
+
