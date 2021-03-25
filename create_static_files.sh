@@ -46,6 +46,8 @@ cp data/Schongebiete-ColorStyles.geojson $OUTDIR >> $LOG 2>&1
 cp data/SchongebieteWays.geojson $OUTDIR >> $LOG 2>&1 
 cp data/statistics.json $OUTDIR/../schongebiete/data >> $LOG 2>&1 
 cp data/statistics.json statistics/statistics.${DATE}.json
+
+# the following needs to correspond to the respective names/settings for the layer names (-nln) and dataseource in geoserver
 ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" data/Schongebiete.geojson -nln geojson -overwrite >> $LOG 2>&1 
 [ $? -ne 0 ] && error
 ogr2ogr -f "PostgreSQL" PG:"dbname=schongebiete user=postgres" data/SchongebieteWays.geojson -nln geojsonWays -overwrite >> $LOG 2>&1 
