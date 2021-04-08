@@ -163,6 +163,7 @@ def create(result, allResults, withStyles, lType, outFile):
                 else:
                     features.append(Feature(geometry=Polygon([lonLats]),properties=wayRel.tags))
 
+    list.sort(features, key=lambda x: x['properties']['@id'])
     feature_collection = FeatureCollection(features)
 
     with open(outFile, "w") as gFile:
