@@ -1,6 +1,7 @@
 #!/bin/bash
 
 BASE=~/osm/scripts/python
+DATA_DIR=${BASE}/data
 OUTDIR=~/osm/html/osm
 SHAPESDIR=~/osm/data/Shapes/Schongebiete
 DATE=$(date +%F)
@@ -66,6 +67,11 @@ geojsontoosm Schongebiete.geojson > Schongebiete.osm
 
 date=$(date +'%d.%m.%Y %H:%M'|sed 's/\s/%20/g')
 wget -q -O ~/osm/html/schongebiete/data/status.svg "https://img.shields.io/static/v1?label=updated&message=${date}&color=green"
+
+cd $DATA_DIR
+git diff Schongebiete.geojson >> ${LOG} 2>&1 
+git commit -m "${DATE}" .  >> ${LOG} 2>&1 
+git push  >> ${LOG} 2>&1 
 
 if [ -f ${LOG} ]; then
     echo "$(date) finshed" >> ${LOG}
